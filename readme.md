@@ -46,14 +46,11 @@ capture_1/
 
 ## 📜 Usage
 
-1. Update the `m3u8_url` and `capture_name` inside `main()` in the script.
-2. Run the script:
-
-   ```bash
-   python capture.py
-   ```
-
-3. The script prints two commands:
+1. Run the following command: 
+```bash
+python capture.py "https://example.com/index.m3u8" "capture_1"
+```
+2. The script prints two commands:
 
    - One to download all the `.ts` files:
      ```bash
@@ -65,7 +62,7 @@ capture_1/
      ffmpeg -allowed_extensions ALL -i capture_1/simple.m3u8 -c copy capture_1.ts
      ```
 
-4. **Important Note:** If the video is region-locked or protected, consider using a VPN while downloading.
+3. **Important Note:** If the video is region-locked or protected, consider using a VPN while downloading.
 
 ---
 

@@ -3,6 +3,8 @@ import os
 from urllib.parse import urlparse
 import requests 
 import subprocess
+import argparse
+
 
 def download_file(url, save_path):
     """
@@ -109,10 +111,18 @@ def run_command(command):
     print(f"Command exited with code: {process.returncode}")
 
 if __name__ == '__main__':
-    
-    capture_name = 'capture_1'
+    parser = argparse.ArgumentParser(description='📺 Capture and process transport streams from m3u8 links.')
+    parser.add_argument('m3u8_url', type=str, help='🔗 URL to the .m3u8 file')
+    parser.add_argument('capture_name', type=str, help='📁 Directory name for the capture')
 
-    m3u8_url = "https://be4235.rcr32.ams02.cdn255.com/hls2/01/08764/cjk6te44q889_x/index-v1-a1.m3u8?t=lUYBWO8P7k2EYB081eeSpoX4fwKf3FnQw9U54ZjNN1A&s=1744784913&e=10800&f=43822852&srv=27&asn=212238&sp=5500&p="
+    args = parser.parse_args()
+    m3u8_url = args.m3u8_url
+    capture_name = args.capture_name
+
+    print("🚀 Starting capture process...")
+    print(f"🔗 m3u8 URL: {m3u8_url}")
+    print(f"📁 Capture Directory: {capture_name}\n")
+
     # setup capture directory
     os.makedirs(capture_name, exist_ok=True)
 
@@ -131,7 +141,7 @@ if __name__ == '__main__':
     # merge the segments
     merge_cmd = f"ffmpeg -allowed_extensions ALL -i {capture_name}/simple.m3u8 -c copy {capture_name}.ts"
 
-    print("\nrun the following commands in order")
-    print(f"command 1: {download_cmd}")
-    print(f"command 2: {merge_cmd}")
-    print("NOTE: command 1 may take more time depending on the network speed, it is recommened to use a VPN")
+    print("\n📥 Run the following commands to complete the process:")
+    print(f"🔧 Step 1: {download_cmd}")
+    print(f"🎞️  Step 2: {merge_cmd}")
+    print("💡 NOTE: Step 1 may take time depending on your network speed. Using a VPN is recommended.")
